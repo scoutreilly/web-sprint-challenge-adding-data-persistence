@@ -17,21 +17,14 @@ router.get("/", (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const newBody = req.body;
-    if (!newBody.project_name || !newBody.project_description) {
-      res
-        .status(404)
-        .json({ message: "New project must include a name and description" });
-    } else {
-      const newTask = await taskModel.create(newBody);
-      res.json({
-        task_id: newTask.task_id,
-        task_description: newTask.task_description,
-        task_notes: newTask.task_notes,
-        task_completed: newTask.task_completed === 0 ? false : true,
-        project_id: newTask.project_id,
-      });
-    }
+    const newTask = await taskModel.create(req.body);
+    res.json({
+      task_id: newTask.task_id,
+      task_description: newTask.task_description,
+      task_notes: newTask.task_notes,
+      task_completed: newTask.task_completed === 0 ? false : true,
+      project_id: newTask.project_id,
+    });
   } catch (err) {
     next(err);
   }
