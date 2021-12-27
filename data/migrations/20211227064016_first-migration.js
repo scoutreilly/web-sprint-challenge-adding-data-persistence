@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 exports.up = function (knex, Promise) {
   return knex.schema
     .createTable("projects", (table) => {
